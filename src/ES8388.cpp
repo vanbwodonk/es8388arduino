@@ -168,9 +168,6 @@ bool ES8388::init() {
   /* Power up DEM and STM */
   res &= write_reg(ES8388_CHIPPOWER, 0x00);
   /* set up MCLK) */
-  PIN_FUNC_SELECT(PERIPHS_IO_MUX_GPIO0_U, FUNC_GPIO0_CLK_OUT1);
-  WRITE_PERI_REG(PIN_CTRL, 0xFFF0);
-
   return res;
 }
 

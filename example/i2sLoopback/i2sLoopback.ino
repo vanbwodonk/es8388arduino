@@ -54,6 +54,8 @@ void setup() {
   }
 
   // i2s
+  PIN_FUNC_SELECT(PERIPHS_IO_MUX_GPIO0_U, FUNC_GPIO0_CLK_OUT1);
+  WRITE_PERI_REG(PIN_CTRL, 0xFFF0);
   i2s_driver_install(I2S_NUM_0, &i2s_config, 0, NULL);
   i2s_set_pin(I2S_NUM_0, &pin_config);
 }
