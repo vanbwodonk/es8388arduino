@@ -223,21 +223,25 @@ bool ES8388::DACmute(bool mute) {
 
 // set output volume max is 33
 bool ES8388::setOutputVolume(uint8_t vol) {
-  if (vol > 33) vol = 33;
+  if (vol > 33)
+    vol = 33;
   bool res = true;
   if (_outSel == OUTALL || _outSel == OUT1) {
-    res &= write_reg(ES8388_DACCONTROL24, vol);  // LOUT1VOL
-    res &= write_reg(ES8388_DACCONTROL25, vol);  // ROUT1VOL
-  } else if (_outSel == OUTALL || _outSel == OUT2) {
-    res &= write_reg(ES8388_DACCONTROL26, vol);  // LOUT2VOL
-    res &= write_reg(ES8388_DACCONTROL27, vol);  // ROUT2VOL
+    res &= write_reg(ES8388_DACCONTROL24, vol); // LOUT1VOL
+    res &= write_reg(ES8388_DACCONTROL25, vol); // ROUT1VOL
+  } if (_outSel == OUTALL || _outSel == OUT2) {
+    res &= write_reg(ES8388_DACCONTROL26, vol); // LOUT2VOL
+    res &= write_reg(ES8388_DACCONTROL27, vol); // ROUT2VOL
   }
   return res;
 }
 
 uint8_t ES8388::getOutputVolume() {
   static uint8_t _reg;
-  read_reg(ES8388_DACCONTROL24, _reg);
+  if(_outSel == OUT1)
+    read_reg(ES8388_DACCONTROL24, _reg);
+  else if(_outSel == OUT2)
+    read_reg(ES8388_DACCONTROL26, _reg);
   return _reg;
 }
 
