@@ -43,14 +43,15 @@ class ES8388 {
  private:
   outsel_t _outSel = OUTALL;
   insel_t _inSel = IN1;
-  TwoWire i2c = TwoWire(0);
+  TwoWire* i2c;
   uint8_t _pinsda, _pinscl;
   uint32_t _i2cspeed;
   bool write_reg(uint8_t reg_add, uint8_t data);
   bool read_reg(uint8_t reg_add, uint8_t& data);
 
  public:
-  ES8388(uint8_t _sda, uint8_t _scl, uint32_t _speed);
+  ES8388(TwoWire* wire, uint8_t _sda, uint8_t _scl, uint32_t _speed);
+  // ES8388(uint8_t _sda, uint8_t _scl, uint32_t _speed);
   ~ES8388();
   bool init();
   bool identify(int sda, int scl, uint32_t frequency);
